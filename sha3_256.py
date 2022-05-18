@@ -1,5 +1,5 @@
 """
-Created on Sat Dec  4 16:12:35 2021
+Created on Sat Dec 4 16:12:35 2021
 
 @author: Batel Oved
 """
@@ -13,11 +13,11 @@ w = 64
 d = 256
 rounds = 24
 
-Rho_rotate = [[0,36,3,41,18],
-              [1,44,10,45,2],
-              [62,6,43,15,61],
-              [28,55,25,21,56],
-              [27,20,39,8,14]]
+ROT =  [[0,36,3,41,18],
+        [1,44,10,45,2],
+        [62,6,43,15,61],
+        [28,55,25,21,56],
+        [27,20,39,8,14]]
 
 RC = [0]*rounds
 RC[0]  = 0x0000000000000001
@@ -117,10 +117,10 @@ def Theta(A):
 def Rho(A):
     for x in range(5):
         for y in range(5):
-            A[x][y] = rotate(A[x][y],Rho_rotate[x][y])
+            A[x][y] = rotate(A[x][y],ROT[x][y])
     return A
 
-def Phi(A):
+def Pi(A):
     B = [[[0 for z in range(w)] for x in range(5)] for y in range(5)]
     for x in range(5):
         for y in range(5):
@@ -144,7 +144,7 @@ def Iota(A,r):
     return A
     
 def Rnd(A, ir):
-    return Iota(Chi(Phi(Rho(Theta(A)))),ir)
+    return Iota(Chi(Pi(Rho(Theta(A)))),ir)
 
 def f(s):
     A = strToStateArray(s)
